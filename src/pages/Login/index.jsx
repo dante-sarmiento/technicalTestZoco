@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/AuthProvider'
 import { login } from '../../api/mockApi'
 import LoginLayout from '../../layout/loginLayout'
 import CustomImage from '../../components/CustomImage'
@@ -12,12 +12,12 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const navigate = useNavigate()
-  const { loginContext } = useAuth()
+  const { loginContext, setLoader } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
-
+    setLoader(true)
     try {
       const { token, user } = await login(email, password)
       loginContext(token, user)
@@ -25,6 +25,7 @@ const Login = () => {
     } catch (err) {
       setError(err.message)
     }
+    setLoader(false)
   }
 
 
@@ -33,27 +34,27 @@ const Login = () => {
       <div className="flex items-center justify-center h-full">
         <form
           onSubmit={handleSubmit}
-          className="px-6 py-8 rounded shadow w-full min-w-sm md:min-w-md max-w-lg space-y-6 bg-white rounded-3xl"
+          className="px-6 py-8 rounded shadow w-full min-w-sm md:min-w-md max-w-lg space-y-6 bg-gray_700 opacity-90 shadow-3xl rounded-3xl"
         >
-          <h2 className="text-2xl font-semibold text-center">Inicio de sesión</h2>
+          <h2 className="text-2xl font-semibold text-center text-white">Inicio de sesión</h2>
 
-          <div className='w-full border border-gray-400 px-2 h-16 rounded-2xl flex justify-center items-center'>
+          <div className='w-full border border-gray-200 px-2 h-16 rounded-2xl flex justify-center items-center'>
             <input
               type="email"
               placeholder="Correo electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full outline-none text-xl"
+              className="w-full outline-none text-xl bg-transparent text-white"
               required
             />
           </div>
-          <div className='w-full border border-gray-400 px-2 h-16 rounded-2xl flex justify-center items-center'>
+          <div className='w-full border border-gray-200 px-2 h-16 rounded-2xl flex justify-center items-center'>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full outline-none text-xl"
+              className="w-full outline-none text-xl bg-transparent text-white"
               required
             />
             <button className='cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
@@ -73,7 +74,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full text-black bg-green-700 p-2 rounded-2xl hover:bg-blue-700 cursor-pointer text-xl text-white font-semibold transition-all transition-discrete delay-100 duration-400 "
+            className="w-full text-black bg-dark p-2 rounded-2xl hover:bg-blue-700 cursor-pointer text-xl text-white font-semibold transition-all transition-discrete delay-100 duration-400 "
             >
             Entrar
           </button>

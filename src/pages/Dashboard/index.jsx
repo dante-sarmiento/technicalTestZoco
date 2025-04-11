@@ -1,7 +1,7 @@
 import React from 'react'
 
 //Context
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/AuthProvider'
 
 //Layout
 import MainLayout from '../../layout/mainLayout'

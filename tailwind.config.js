@@ -26,7 +26,6 @@ export default {
       gray_800: '#1F2A37',
       gray_900: '#111928',
       dark: '#0E1420',
-      dark_dark: '#0E1420', // Duplicate but added for reference
       black: '#000000',
       white: '#FFFFFF',
 

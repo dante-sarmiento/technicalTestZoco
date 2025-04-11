@@ -1,7 +1,7 @@
 import React from 'react'
 
 //Context
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/AuthProvider'
 
 //Component
 import ButtonText from '../ButtonText'
@@ -23,7 +23,7 @@ const Header = () => {
                 </div>
                 <ButtonText
                     text=''
-                    classButton='bg-red-700 hover:bg-gray-900 transition-all transition-discrete delay-100 duration-400 text-white rounded-xl flex justify-center items-center p-2'
+                    classButton='bg-red_700 hover:bg-gray-900 transition-all transition-discrete delay-100 duration-400 text-white rounded-xl flex justify-center items-center p-2'
                     handleClick={logoutContext}
                     img='/img/logout.png' />
 
