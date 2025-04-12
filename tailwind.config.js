@@ -8,11 +8,8 @@ export default {
   ],
   theme: {
     extend: {
-      screens: {
-        '3xl': '1900px',
-        'responsivew': '1024px',
-        'md': '768px'
-      },
+
+    },
     colors: {
       // Gray scalse
       gray_50: '#F9FAFB', // gray-10
@@ -165,7 +162,13 @@ export default {
       transparent: 'transparent', //
       buttonDetail: "#1a56db"
     },
-    },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    }
   },
   plugins: [],
 };

@@ -18,8 +18,8 @@ const UsersTable = ({ data, handleSelecetUser }) => {
         <table className="min-w-full border rounded shadow">
           <thead className="border-b bg-dark">
             <tr>
-              <th className="headersTable py-2 px-4 hidden md:block">Nombre</th>
-              <th className="headersTable py-2 px-4 hidden md:block">Apellido</th>
+              <th className="headersTable py-2 px-4 hidden md:flex">Nombre</th>
+              <th className="headersTable py-2 px-4 hidden md:flex">Apellido</th>
               <th className="headersTable py-2 px-4">Email</th>
               <th className="headersTable py-2 px-4 hidden md:block">Rol</th>
               <th className="headersTable py-2 "></th>
