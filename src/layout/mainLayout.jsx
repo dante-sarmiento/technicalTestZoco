@@ -10,7 +10,7 @@ import { useAuth } from '../context/AuthProvider'
 const MainLayout = ({children}) => {
   const { loader } = useAuth()
   return (
-    <div className='w-full h-screen bg-dark'>
+    <div className='w-full h-screen bg-dark overflow-auto hiddenScroll'>
       {loader && (
         <Loader />
       )}

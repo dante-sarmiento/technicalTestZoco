@@ -1,10 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+//Context
 import { useAuth } from '../../context/AuthProvider'
-import { login } from '../../api/mockApi'
+
+// Components
 import LoginLayout from '../../layout/loginLayout'
 import CustomImage from '../../components/CustomImage'
+
+//Connections
+import { login } from '../../api/users'
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -31,10 +37,10 @@ const Login = () => {
 
   return (
     <LoginLayout>
-      <div className="flex items-center justify-center h-full">
+      <div className="flex w-full md:w-auto items-center justify-center h-full px-4 md:px-0">
         <form
           onSubmit={handleSubmit}
-          className="px-6 py-8 rounded shadow w-full min-w-sm md:min-w-md max-w-lg space-y-6 bg-gray_700 opacity-90 shadow-3xl rounded-3xl"
+          className="px-6 py-8 rounded shadow w-full md:max-w-[400px] space-y-6 bg-gray_700 opacity-90 shadow-3xl rounded-3xl"
         >
           <h2 className="text-2xl font-semibold text-center text-white">Inicio de sesión</h2>
 

@@ -35,11 +35,14 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logoutContext = () => {
+    setLoader(true)
     setToken(null)
     setUser(null)
     setRole(null)
     setIsAuthenticated(false)
-
+    setTimeout(() => {
+      setLoader(false)
+    }, 1000);
     sessionStorage.clear()
   }
 

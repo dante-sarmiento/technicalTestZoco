@@ -6,7 +6,10 @@ export const translate = (text)=> {
     state: "Provincia",
     city: "Ciudad",
     university: "Universidad",
-    career: "Carrera"
+    career: "Carrera",
+    client: "Cliente",
+    admin: "Administrador",
+    graduated: "Graduado"
   };
 
   return translations[text] || text;
