@@ -15,11 +15,12 @@ const Header = () => {
         <div className='w-full h-16 flex justify-center items-center px-6 py-2 bg-[#1F2A37]'>
             <div className='w-full flex h-full items-center justify-between'>
                 <div className='flex justify-start items-center gap-2'>
-                    <div className='border-2 bg-gray-400 rounded-full p-1'>
-                    <CustomImage 
-                      url='/img/user.png'/>
-                      </div>
-                <h2 className='text-white'>Bienvenid@, {user?.firstName} {user?.lastName}</h2>
+                    <div className='border-2 bg-gray_200 rounded-full p-2'>
+                        <CustomImage
+                            url='/img/user.png'
+                            classImg='w-[20px] h-[20px]' />
+                    </div>
+                    <h2 className='text-white'>Bienvenid@, {user?.firstName} {user?.lastName}</h2>
                 </div>
                 <ButtonText
                     text=''

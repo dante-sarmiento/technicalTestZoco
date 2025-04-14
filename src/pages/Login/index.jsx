@@ -63,7 +63,7 @@ const Login = () => {
               className="w-full outline-none text-xl bg-transparent text-white"
               required
             />
-            <button className='cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+            <button type='button' className='cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
               <CustomImage
                 url={!showPassword ? "/img/closeEye.png" : "/img/openEye.png"}
                 alt="pass"
@@ -73,7 +73,7 @@ const Login = () => {
 
           </div>
           {error && (
-            <p className='text-red-500 text-sm md:text-base font-normal text-start'>
+            <p className='text-red_500 text-sm md:text-base font-normal text-start'>
               {error}
             </p>
           )}

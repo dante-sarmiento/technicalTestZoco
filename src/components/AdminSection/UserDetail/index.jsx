@@ -149,7 +149,7 @@ console.log(isNewUserForm);
         )}
       </div>
 
-      <div className='w-full grid mobile:grid-cols-1 md:grid-cols-3 gap-3'>
+      <div className='w-full grid mobile:grid-cols-1 md:grid-cols-2 gap-3'>
         {[
           { label: 'Nombre', field: 'firstName' },
           { label: 'Apellido', field: 'lastName' },
