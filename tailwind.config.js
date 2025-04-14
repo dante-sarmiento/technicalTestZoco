@@ -25,6 +25,7 @@ export default {
       dark: '#0E1420',
       black: '#000000',
       white: '#FFFFFF',
+      transparent: 'transparent',
 
       // Primary colors
       primary: '#3F83F8',
@@ -62,105 +63,6 @@ export default {
       red_700: '#C81E1E',
       red_800: '#9B1C1C',
       red_900: '#771D1D',
-
-      // Orange colors
-      orange_50: '#FFF8F1',
-      orange_100: '#FEECDC',
-      orange_200: '#FCD9BD',
-      orange_300: '#FDBA8C',
-      orange_400: '#FF8A4C',
-      orange_500: '#FF5A1F',
-      orange_600: '#D03801',
-      orange_700: '#B43403',
-      orange_800: '#8A2C0D',
-      orange_900: '#771D1D',
-
-      // Indigo colors
-      indigo_50: '#F0F5FF',
-      indigo_100: '#E5EDFF',
-      indigo_200: '#CDDBFE',
-      indigo_300: '#B4C6FC',
-      indigo_400: '#8DA2FB',
-      indigo_500: '#6875F5',
-      indigo_600: '#5850EC',
-      indigo_700: '#5145CD',
-      indigo_800: '#42389D',
-      indigo_900: '#362F78',
-
-      // Pink colors
-      pink_50: '#FDF2F8',
-      pink_100: '#FCE8F3',
-      pink_200: '#FAD1E8',
-      pink_300: '#F8B4D9',
-      pink_400: '#F17EB8',
-      pink_500: '#E74694',
-      pink_600: '#D61F69',
-      pink_700: '#BF125D',
-      pink_800: '#99154B',
-      pink_900: '#751A3D',
-
-      // Purple colors
-      purple_50: '#F6F5FF',
-      purple_100: '#EDEBFE',
-      purple_200: '#DCD7FE',
-      purple_300: '#CABFFD',
-      purple_400: '#AC94FA',
-      purple_500: '#9061F9',
-      purple_600: '#7E3AF2',
-      purple_700: '#6C2BD9',
-      purple_800: '#5521B5',
-      purple_900: '#4A1D96',
-
-      // Teal colors
-      teal_50: '#EDFAFA',
-      teal_100: '#D5F5F6',
-      teal_200: '#AFECEF',
-      teal_300: '#7EDCE2',
-      teal_400: '#16BDCA',
-      teal_500: '#0694A2',
-      teal_600: '#047481',
-      teal_700: '#036672',
-      teal_800: '#05505C',
-      teal_900: '#014451',
-
-      // Yellow colors
-      yellow_50: '#FDFDEA',
-      yellow_100: '#FDF6B2',
-      yellow_200: '#FCE96A',
-      yellow_300: '#FACA15',
-      yellow_400: '#E3A008',
-      yellow_500: '#C27803',
-      yellow_600: '#9F580A',
-      yellow_700: '#8E4B10',
-      yellow_800: '#723B13',
-      yellow_900: '#633112',
-
-      // Shiraz colors
-      shiraz_50: '#FFF0F2',
-      shiraz_100: '#FFE1E5',
-      shiraz_200: '#FFC8D1',
-      shiraz_300: '#FF9BAB',
-      shiraz_400: '#FF6380',
-      shiraz_500: '#FF2D59',
-      shiraz_600: '#F50945',
-      shiraz_700: '#CF013A',
-      shiraz_800: '#AF0439',
-      shiraz_900: '#940738',
-      shiraz_950: '#530019',
-
-      // Additional colors
-      titles: '#E5E7EB', // gray-200 //
-      subTitles: '#9CA3AF', //
-      inactive: '#1F2A37', //
-      success: '#4CFFBE', //
-      warning: '#FDBA8C', //
-      error: '#F05252', //
-      disabled: '#4B5563', //
-      disabledText: '#9CA3AF', //
-      inputError: '#F05252', //
-      light: '#F3F4F6', //
-      transparent: 'transparent', //
-      buttonDetail: "#1a56db"
     },
     screens: {
       mobile: '250px',
@@ -169,7 +71,7 @@ export default {
       lg: '1024px',
       xl: '1280px',
       dsk: '1920px',
-     
+
     }
   },
   plugins: [],

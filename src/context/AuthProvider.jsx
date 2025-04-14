@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(null)
   const [loader, setLoader] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [checkingAuth, setCheckingAuth] = useState(true)
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token')
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
       setRole(storedRole)
       setIsAuthenticated(true)
     }
+     setCheckingAuth(false)
   }, [])
 
   const loginContext = (token, user) => {
@@ -55,7 +57,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, user, role, isAuthenticated, loginContext, logoutContext, loader, setLoader, updateUserContext }}
+      value={{ token, user, role, isAuthenticated, loginContext, logoutContext, loader, setLoader, updateUserContext, checkingAuth  }}
     >
       {children}
     </AuthContext.Provider>
