@@ -8,9 +8,10 @@ import { useAuth } from '../../context/AuthProvider'
 // Components
 import LoginLayout from '../../layout/loginLayout'
 import CustomImage from '../../components/CustomImage'
+import { useData } from '../../context/DataProvider'
 
 //Connections
-import { login } from '../../api/users'
+// import { login } from '../../api/users'
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -19,6 +20,7 @@ const Login = () => {
   const [error, setError] = useState(false)
   const navigate = useNavigate()
   const { loginContext, setLoader } = useAuth()
+  const { login } = useData()
 
   const handleSubmit = async (e) => {
     e.preventDefault()

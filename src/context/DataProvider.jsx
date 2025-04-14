@@ -14,6 +14,12 @@ export const DataProvider = ({ children }) => {
     const [studiesProvider, setStudiesProvider] = useState([])
     const [usersProvider, setUsersProvider] = useState([])
 
+    useEffect(() => {
+      
+        console.log("users", usersProvider)
+    }, [usersProvider])
+    
+    
     const reloadData = async () => {
         try {
             const [users, addresses, studies] = await Promise.all([
@@ -30,8 +36,25 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const login = (email, password) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const user = usersProvider.find(
+                    (u) => u.email === email && u.password === password
+                )
+
+                if (user) {
+                    const token = btoa(`${user.email}:${user.role}`)
+                    resolve({ token, user })
+                } else {
+                    reject(new Error('Credenciales inválidas'))
+                }
+            }, 1000)
+        })
+    }
+
+
     const updateAddress = (updatedAddress) => {
-        console.log("updatedAdd", updatedAddress);
         setAddressesProvider(prev =>
             prev.map(addr => addr.id === updatedAddress.id ? updatedAddress : addr)
         );
@@ -105,7 +128,9 @@ export const DataProvider = ({ children }) => {
 
 
     useEffect(() => {
-        reloadData()
+        if(usersProvider.length == 0) {
+            reloadData()
+        }
     }, []);
 
     return (
@@ -120,7 +145,8 @@ export const DataProvider = ({ children }) => {
                 reloadData,
                 saveAddress,
                 saveStudy,
-                updateUsersProviders
+                updateUsersProviders,
+                login
             }}
         >
             {children}

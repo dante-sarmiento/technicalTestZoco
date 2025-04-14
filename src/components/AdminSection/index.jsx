@@ -11,37 +11,42 @@ import { getUsers } from '../../api/users'
 
 //Context
 import { useAuth } from '../../context/AuthProvider'
+import { useData } from '../../context/DataProvider'
+import { addUserArray, updateUserArray } from '../../helpers/handleUsersArray'
 
 const AdminSection = ({ admin }) => {
     const { setLoader, updateUserContext } = useAuth()
     const [usersData, setUsersData] = useState([])
     const [selectedUser, setSelectedUser] = useState(null)
     const [isNewUserForm, setIsNewUserForm] = useState(false)
+    const { usersProvider, setUsersProvider } = useData()
 
 
     useEffect(() => {
-        const getUsersData = async () => {
+        if (usersProvider.length > 0) {
+            setUsersData(usersProvider)
+            return
+        }
+
+        const fetchUsers = async () => {
             try {
                 const data = await getUsers()
                 setUsersData(data)
             } catch (error) {
-                console.log("getUsers error", error)
+                console.error("Error fetching users", error)
             }
         }
-        getUsersData()
-    }, [])
+
+        fetchUsers()
+    }, [usersProvider])
 
     const handleUpdateUser = (updatedUser) => {
-        
         setLoader(true);
+        setUsersData(prev => updateUserArray(prev, updatedUser))
+        setUsersProvider(prev => updateUserArray(prev, updatedUser))
         if (updatedUser.id === admin.id) {
-            updateUserContext(updatedUser);
+            updateUserContext(updatedUser)
         }
-        setUsersData((prev) =>
-            prev.map(user =>
-                user.id === updatedUser.id ? updatedUser : user
-            )
-        );
         setTimeout(() => {
             setLoader(false);
         }, 2000);
@@ -53,22 +58,27 @@ const AdminSection = ({ admin }) => {
 
     const handleNewUser = () => {
         const newuserData = {
-        id: Date.now(),
-        userId: Date.now(),
-        street: '',
-        number: '',
-        city: '',
-        state: '',
-        country: '',
-        password: ''
-      };
-      setSelectedUser(newuserData)
-      setIsNewUserForm(true)
+            id: Date.now(),
+            userId: Date.now(),
+            street: '',
+            number: '',
+            city: '',
+            state: '',
+            country: '',
+            password: ''
+        };
+        setSelectedUser(newuserData)
+        setIsNewUserForm(true)
     }
 
     const submitNewUser = (newUser) => {
-        setUsersData(prev => [...prev, newUser])
+        setLoader(true)
+        setUsersData(prev => addUserArray(prev, newUser))
+        setUsersProvider(prev => addUserArray(prev, newUser))
         setIsNewUserForm(false)
+        setTimeout(() => {
+            setLoader(false)
+        }, 2000);
     }
 
 
@@ -82,12 +92,12 @@ const AdminSection = ({ admin }) => {
                         updateUser={handleUpdateUser}
                         isNewUserForm={isNewUserForm}
                         submitNewUser={submitNewUser}
-                         />
+                    />
 
                     <button className='w-[30px] h-[30px]' onClick={() => {
-                        setSelectedUser(null) 
+                        setSelectedUser(null)
                         setIsNewUserForm(false)
-                        }}>
+                    }}>
                         <CustomImage
                             url='/img/arrow-back.svg'
                             classImg='w-full h-full p-2 bg-red_700 rounded-lg'

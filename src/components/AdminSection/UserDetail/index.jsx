@@ -66,7 +66,7 @@ const UserDetail = ({ user, updateUser, role, isNewUserForm = false, submitNewUs
       setForm((prev) => ({ ...prev, [field]: value }))
     }
   }
-console.log(isNewUserForm);
+  
   const handleSubmit = () => {
     if (isNewUserForm) {
       submitNewUser({
