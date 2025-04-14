@@ -80,9 +80,9 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full text-black bg-dark p-2 rounded-2xl hover:bg-blue-700 cursor-pointer text-xl text-white font-semibold transition-all transition-discrete delay-100 duration-400 "
+            className="w-full text-black bg-dark p-2 rounded-2xl cursor-pointer text-xl text-white font-semibold transition-all transition-discrete delay-100 duration-400 hover:bg-primary"
             >
-            Entrar
+            Ingresar
           </button>
         </form>
       </div>
