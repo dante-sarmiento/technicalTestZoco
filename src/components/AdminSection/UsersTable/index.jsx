@@ -24,7 +24,7 @@ const UsersTable = ({ data, handleSelecetUser, handleNewUSer }) => {
           <div className="w-full flex justify-between items-center border-b bg-dark px-2">
             <p className="headersTable py-2 w-1/5 mobile:hidden md:flex">Nombre</p>
             <p className="headersTable py-2 w-1/5 mobile:hidden md:flex">Apellido</p>
-            <p className="headersTable py-2 w-2/5">Email</p>
+            <p className="headersTable py-2 mobile:w-full md:w-2/5">Email</p>
             <p className="headersTable py-2 w-1/5 mobile:hidden md:flex">Rol</p>
             <p className="headersTable py-2 "></p>
           </div>
@@ -33,7 +33,7 @@ const UsersTable = ({ data, handleSelecetUser, handleNewUSer }) => {
               <div key={user.id} className="w-full hover:bg-gray_700 border-b flex justify-between items-center px-2">
                 <p className="bodyTable py-2 w-1/5 mobile:hidden md:flex">{user.firstName}</p>
                 <p className="bodyTable py-2 w-1/5 mobile:hidden md:flex">{user.lastName}</p>
-                <p className="bodyTable py-2 w-2/5 ">{user.email}</p>
+                <p className="bodyTable py-2 truncate mobile:w-[90%] md:w-2/5 ">{user.email}</p>
                 <p className="bodyTable py-2 w-1/5 capitalize mobile:hidden md:flex">{translate(user.role)}</p>
                 <div className="bodyTable cursor-pointer px-4 md:px-0 py-2" onClick={() => handleSelecetUser(user)}>
                   <CustomImage
