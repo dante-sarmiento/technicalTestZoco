@@ -31,6 +31,7 @@ export const DataProvider = ({ children }) => {
     };
 
     const updateAddress = (updatedAddress) => {
+        console.log("updatedAdd", updatedAddress);
         setAddressesProvider(prev =>
             prev.map(addr => addr.id === updatedAddress.id ? updatedAddress : addr)
         );
@@ -58,6 +59,51 @@ export const DataProvider = ({ children }) => {
         setStudiesProvider(prev => prev.filter(study => study.id !== id));
     };
 
+    const saveAddress = (newListAddress) => {
+        const existingIds = addressesProvider.map(a => a.id)
+        const newIds = newListAddress.map(a => a.id)
+
+        newListAddress.forEach(addr => {
+            if (existingIds.includes(addr.id)) {
+                updateAddress(addr)
+            } else {
+                addAddress(addr)
+            }
+        })
+
+        addressesProvider.forEach(addr => {
+            if (!newIds.includes(addr.id)) {
+                deleteAddress(addr.id)
+            }
+        })
+    }
+
+    const saveStudy = (newListStudies) => {
+        const existingIds = studiesProvider.map(s => s.id)
+        const newIds = newListStudies.map(s => s.id)
+
+        newListStudies.forEach(study => {
+            if (existingIds.includes(study.id)) {
+                updateStudy(study)
+            } else {
+                addStudy(study)
+            }
+        })
+
+        studiesProvider.forEach(study => {
+            if (!newIds.includes(study.id)) {
+                deleteStudy(study.id)
+            }
+        })
+    }
+
+    const updateUsersProviders = (newUser) => {
+        setUsersProvider(prev =>
+            prev.map(user => user.id === newUser.id ? newUser : user)
+        );
+    }
+
+
     useEffect(() => {
         reloadData()
     }, []);
@@ -72,12 +118,9 @@ export const DataProvider = ({ children }) => {
                 studiesProvider,
                 setStudiesProvider,
                 reloadData,
-                updateAddress,
-                updateStudy,
-                addStudy,
-                addAddress,
-                deleteAddress,
-                deleteStudy
+                saveAddress,
+                saveStudy,
+                updateUsersProviders
             }}
         >
             {children}

@@ -5,8 +5,8 @@ import { useAuth } from '../../context/AuthProvider'
 
 //Layout
 import MainLayout from '../../layout/mainLayout'
-import AdminSection from '../../components/AdminSection'
 import UserSection from '../../components/UserSection'
+import AdminSection from '../../components/AdminSection'
 
 
 const Dashboard = () => {

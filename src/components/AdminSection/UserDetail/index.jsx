@@ -21,7 +21,7 @@ const sections = [
   { value: 'estudios', label: 'Estudios' }
 ]
 
-const UserDetail = ({ user, updateUser, role }) => {
+const UserDetail = ({ user, updateUser, role, isNewUserForm = false, submitNewUser }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [form, setForm] = useState({ ...user })
   const [addresses, setAddresses] = useState([])
@@ -32,8 +32,8 @@ const UserDetail = ({ user, updateUser, role }) => {
   const {
     addressesProvider,
     studiesProvider,
-    // updateAddress,
-    // updateStudy 
+    saveAddress,
+    saveStudy,
   } = useData()
 
   useEffect(() => {
@@ -66,19 +66,65 @@ const UserDetail = ({ user, updateUser, role }) => {
       setForm((prev) => ({ ...prev, [field]: value }))
     }
   }
-
+console.log(isNewUserForm);
   const handleSubmit = () => {
-    updateUser({
-      ...form,
-      addresses,
-      studies
-    })
-    setIsEditing(false)
-  }
+    if (isNewUserForm) {
+      submitNewUser({
+        ...form
+      })
+    } else {
+      updateUser({
+        ...form
+      })
+      saveAddress(addresses);
+      saveStudy(studies);
+    }
+
+    setIsEditing(false);
+  };
 
   const cancelEdit = () => {
     setIsEditing(false)
     setForm({ ...user })
+    setAddresses(
+      addressesProvider.filter((a) => a.userId === user.id)
+    )
+    setStudies(
+      studiesProvider.filter((s) => s.userId === user.id)
+    )
+  }
+
+  const newForm = () => {
+    setIsEditing(true)
+    if (sectionSelected.value == "direcciones") {
+      const newAddress = {
+        id: Date.now(),
+        userId: user.id,
+        street: '',
+        number: '',
+        city: '',
+        state: '',
+        country: ''
+      };
+      setAddresses(prev => [newAddress, ...prev]);
+    } else {
+      const newStudy = {
+        id: Date.now(),
+        userId: user.id,
+        university: '',
+        career: '',
+        graduated: false
+      };
+      setStudies(prev => [newStudy, ...prev]);
+    }
+  }
+
+  const registerDelete = (registerId) => {
+    if (sectionSelected.value == "direcciones") {
+      setAddresses(prev => prev.filter(a => a.id !== registerId))
+    } else {
+      setStudies(prev => prev.filter(s => s.id !== registerId))
+    }
   }
 
   const stylesLabels = 'text-white text-sm font-normal'
@@ -90,8 +136,9 @@ const UserDetail = ({ user, updateUser, role }) => {
         {!isEditing ? (
           <ButtonText
             text='Editar'
-            classButton='bg-primary rounded-lg text-white font-semibold px-2 py-1 flex items-center gap-2'
+            classButton='border border-primary rounded-lg text-white font-semibold px-2 py-1 flex items-center gap-2'
             handleClick={() => setIsEditing(true)}
+            img='/img/editIcon.svg'
           />
         ) : (
           <ButtonText
@@ -102,39 +149,65 @@ const UserDetail = ({ user, updateUser, role }) => {
         )}
       </div>
 
-      <div className='w-full grid grid-cols-2 md:grid-cols-4 gap-3'>
+      <div className='w-full grid mobile:grid-cols-1 md:grid-cols-3 gap-3'>
         {[
           { label: 'Nombre', field: 'firstName' },
           { label: 'Apellido', field: 'lastName' },
           { label: 'Email', field: 'email', type: 'email' },
           { label: 'Rol', field: 'role' }
-        ].map(({ label, field, type = 'text' }) => (
-          <div key={field} className='flex flex-col justify-start items-start gap-1 w-full'>
-            <p className={stylesLabels}>{label}</p>
+        ]
+          .filter(({ field }) => field !== "role" || role === "admin")
+          .map(({ label, field, type = 'text' }) => (
+            <div key={field} className='flex flex-col justify-start items-start gap-1 w-full'>
+              <p className={stylesLabels}>{label}</p>
+              <Input
+                type={type}
+                field={field}
+                section={null}
+                placeholder={label}
+                value={form[field]}
+                handleChange={handleChange}
+                isEditing={isEditing}
+                role={role}
+                dataSelect={field === 'role' ? roles : undefined}
+              />
+            </div>
+          ))}
+        {isNewUserForm && (
+          <div key="pass" className='flex flex-col justify-start items-start gap-1 w-full'>
+            <p className={stylesLabels}>Contraseña</p>
             <Input
-              type={type}
-              field={field}
+              type="password"
+              field={"password"}
               section={null}
-              placeholder={label}
-              value={form[field]}
+              placeholder={"Contraseña"}
+              value={form.password}
               handleChange={handleChange}
               isEditing={isEditing}
               role={role}
-              dataSelect={field === 'role' ? roles : undefined}
+              dataSelect={undefined}
             />
           </div>
-        ))}
+
+        )}
       </div>
 
-      <ButtonsGrid
-        data={sections}
-        dataSelected={sectionSelected}
-        handleData={handleSection}
-      />
+      <div className="w-full flex mobile:flex-col md:flex-row mobile:justify-start md:justify-between items-center gap-y-2 md:items-center">
+        <ButtonsGrid
+          data={sections}
+          dataSelected={sectionSelected}
+          handleData={handleSection}
+        />
+        <ButtonText
+          text={`Añadir ${sectionSelected.label}`}
+          classButton='px-2 py-1 bg-primary text-white rounded-lg flex justify-center items-center font-semibold gap-2 text-sm md:text-lg'
+          img='/img/addIcon.svg'
+          handleClick={newForm} />
+      </div>
 
       {addresses.length > 0 && sectionSelected.value === 'direcciones' && (
         addresses.map((address, idx) => (
-          <div key={idx} className='w-full grid grid-cols-2 md:grid-cols-3 gap-3 bg-dark rounded-xl p-4 mb-4'>
+          <div key={idx} className='w-full grid mobile:grid-cols-1 md:grid-cols-2 gap-3 bg-dark rounded-xl p-4 mb-4'>
             {['country', 'state', 'city', 'street', 'number'].map((field) => (
               <div key={field} className='flex flex-col justify-start items-start gap-1 w-full'>
                 <p className={stylesLabels}>{translate(field)}</p>
@@ -155,13 +228,22 @@ const UserDetail = ({ user, updateUser, role }) => {
                 />
               </div>
             ))}
+            {isEditing && (
+              <div className="w-full flex justify-end items-end">
+                <ButtonText
+                  text=""
+                  classButton='px-2 py-1 border border-red_700 transition-all transition-discrete delay-100 duration-200 hover:bg-red_700 text-white rounded-lg flex justify-center items-center font-semibold gap-2'
+                  img='/img/deleteIcon.svg'
+                  handleClick={() => registerDelete(address.id)} />
+              </div>
+            )}
           </div>
         ))
       )}
 
       {studies.length > 0 && sectionSelected.value === 'estudios' && (
         studies.map((study, idx) => (
-          <div key={idx} className='w-full grid grid-cols-1 md:grid-cols-5 gap-3 bg-dark rounded-xl p-4 mb-4'>
+          <div key={idx} className='w-full grid grid-cols-1 gap-3 bg-dark rounded-xl p-4 mb-4'>
             {['university', 'career', 'graduated'].map((field) => (
               <div
                 key={field}
@@ -203,6 +285,15 @@ const UserDetail = ({ user, updateUser, role }) => {
                 )}
               </div>
             ))}
+            {isEditing && (
+              <div className="w-full flex justify-end items-end">
+                <ButtonText
+                  text=""
+                  classButton='px-2 py-1 border border-red_700 transition-all transition-discrete delay-100 duration-200 hover:bg-red_700 text-white rounded-lg flex justify-center items-center font-semibold gap-2'
+                  img='/img/deleteIcon.svg'
+                  handleClick={() => registerDelete(study.id)} />
+              </div>
+            )}
           </div>
         ))
       )}
@@ -210,7 +301,7 @@ const UserDetail = ({ user, updateUser, role }) => {
       {isEditing && (
         <ButtonText
           text='Guardar'
-          classButton='bg-green-700 transition-all transition-discrete delay-100 duration-200 hover:bg-green-600 rounded-lg text-white font-semibold px-2 py-1 flex items-center gap-2'
+          classButton='bg-green_700 transition-all transition-discrete delay-100 duration-200 hover:bg-green_600 rounded-lg text-white font-semibold px-2 py-1 flex items-center gap-2'
           handleClick={handleSubmit}
         />
       )}

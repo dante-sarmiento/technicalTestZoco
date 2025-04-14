@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
     sessionStorage.setItem('user', JSON.stringify(user))
     sessionStorage.setItem('role', user.role)
   }
+  
 
   const logoutContext = () => {
     setLoader(true)
@@ -46,9 +47,15 @@ export const AuthProvider = ({ children }) => {
     sessionStorage.clear()
   }
 
+  const updateUserContext = (updUser) => {
+    sessionStorage.setItem('user', JSON.stringify(updUser));
+    setUser(updUser)
+    setRole(updUser.role)
+  }
+
   return (
     <AuthContext.Provider
-      value={{ token, user, role, isAuthenticated, loginContext, logoutContext, loader, setLoader }}
+      value={{ token, user, role, isAuthenticated, loginContext, logoutContext, loader, setLoader, updateUserContext }}
     >
       {children}
     </AuthContext.Provider>
