@@ -37,7 +37,7 @@ export const ADDRESSES = [
   },
   {
     id: 5,
-    userId: 1,
+    userId: 6,
     street: 'Av. Colón',
     number: '221',
     city: 'Córdoba',
@@ -82,7 +82,7 @@ export const ADDRESSES = [
   },
   {
     id: 10,
-    userId: 1,
+    userId: 6,
     street: 'Av Sarmiento',
     number: '2300',
     city: 'San Miguel de Tucumán',
