@@ -46,7 +46,9 @@ const UserDetail = ({ user, updateUser, role, isNewUserForm = false, submitNewUs
     setStudies(
       studiesProvider.filter((s) => s.userId === user.id)
     )
-    setLoader(false)
+    setTimeout(() => {
+      setLoader(false)
+    }, 2000);
   }, [user, addressesProvider, studiesProvider])
 
   const handleSection = (sect) => {
@@ -66,22 +68,31 @@ const UserDetail = ({ user, updateUser, role, isNewUserForm = false, submitNewUs
       setForm((prev) => ({ ...prev, [field]: value }))
     }
   }
-  
-  const handleSubmit = () => {
-    if (isNewUserForm) {
-      submitNewUser({
-        ...form
-      })
-    } else {
-      updateUser({
-        ...form
-      })
-      saveAddress(addresses);
-      saveStudy(studies);
-    }
 
-    setIsEditing(false);
+  const handleSubmit = async () => {
+    try {
+      setLoader(true);
+
+      const currentUserId = isNewUserForm ? form.id : user.id;
+      const userData = { ...form };
+
+      if (isNewUserForm) {
+        await submitNewUser(userData);
+      } else {
+        await updateUser(userData);
+      }
+
+      saveAddress(addresses, currentUserId);
+      saveStudy(studies, currentUserId);
+
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error en handleSubmit:', error);
+    } finally {
+      setLoader(false);
+    }
   };
+
 
   const cancelEdit = () => {
     setIsEditing(false)
@@ -142,8 +153,8 @@ const UserDetail = ({ user, updateUser, role, isNewUserForm = false, submitNewUs
           />
         ) : (
           <ButtonText
-            text='Cancelar'
-            classButton='bg-gray_700 rounded-lg text-white font-semibold px-2 py-1 flex items-center gap-2'
+            text='X'
+            classButton='border border-red_700 rounded-lg text-white font-semibold px-3 py-1 flex items-center gap-2'
             handleClick={cancelEdit}
           />
         )}
@@ -192,14 +203,14 @@ const UserDetail = ({ user, updateUser, role, isNewUserForm = false, submitNewUs
         )}
       </div>
 
-      <div className="w-full flex mobile:flex-col md:flex-row mobile:justify-start md:justify-between items-center gap-y-2 md:items-center">
+      <div className="w-full flex mobile:justify-between md:justify-start  items-center gap-2 md:items-center mobile:py-3 md:py-0">
         <ButtonsGrid
           data={sections}
           dataSelected={sectionSelected}
           handleData={handleSection}
         />
         <ButtonText
-          text={`Añadir ${sectionSelected.label}`}
+          text={``}
           classButton='px-2 py-1 bg-primary text-white rounded-lg flex justify-center items-center font-semibold gap-2 text-sm md:text-lg'
           img='/img/addIcon.svg'
           handleClick={newForm} />

@@ -41,15 +41,11 @@ const AdminSection = ({ admin }) => {
     }, [usersProvider])
 
     const handleUpdateUser = (updatedUser) => {
-        setLoader(true);
         setUsersData(prev => updateUserArray(prev, updatedUser))
         setUsersProvider(prev => updateUserArray(prev, updatedUser))
         if (updatedUser.id === admin.id) {
             updateUserContext(updatedUser)
         }
-        setTimeout(() => {
-            setLoader(false);
-        }, 2000);
     };
 
     const handleSelecetUser = (user) => {
@@ -60,11 +56,10 @@ const AdminSection = ({ admin }) => {
         const newuserData = {
             id: Date.now(),
             userId: Date.now(),
-            street: '',
-            number: '',
-            city: '',
-            state: '',
-            country: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            role: '',
             password: ''
         };
         setSelectedUser(newuserData)
@@ -85,16 +80,17 @@ const AdminSection = ({ admin }) => {
     return (
         <div className='w-full h-full flex flex-col justify-center items-start py-2'>
             {selectedUser ?
-                <div className='flex flex-col gap-3 w-full'>
+                <div className='flex flex-col gap-3 w-full '>
                     <UserDetail
                         role={admin.role}
                         user={selectedUser}
                         updateUser={handleUpdateUser}
                         isNewUserForm={isNewUserForm}
                         submitNewUser={submitNewUser}
+                        setLoader={setLoader}
                     />
 
-                    <button className='w-[30px] h-[30px]' onClick={() => {
+                    <button className='w-[40px] h-[40px] mobile:mb-10 md:mb-3' onClick={() => {
                         setSelectedUser(null)
                         setIsNewUserForm(false)
                     }}>

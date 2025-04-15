@@ -65,7 +65,7 @@ export default {
       red_900: '#771D1D',
     },
     screens: {
-      mobile: '250px',
+      mobile: '200px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
