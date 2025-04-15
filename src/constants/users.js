@@ -9,9 +9,9 @@ export const USERS = [
   },
   {
     id: 2,
-    email: 'mariagonzalez@admin.com',
+    email: 'mariagonzalez@client.com',
     password: 'maria123',
-    role: 'admin',
+    role: 'client',
     firstName: 'Maria',
     lastName: 'Gonzalez',
   },
@@ -38,5 +38,13 @@ export const USERS = [
     role: 'client',
     firstName: 'Sofia',
     lastName: 'Sanchez',
+  },
+  {
+    id: 6,
+    email: 'carlosruiz20@admin.com',
+    password: 'carlos123',
+    role: 'admin',
+    firstName: 'Carlos',
+    lastName: 'Ruiz',
   }
 ]

@@ -22,7 +22,8 @@ const UserSection = ({ user }) => {
       <UserDetail
         role={user.role}
         user={selectedUser}
-        updateUser={handleUpdateUser} />
+        updateUser={handleUpdateUser}
+        setLoader={setLoader} />
     </div>
   )
 }
